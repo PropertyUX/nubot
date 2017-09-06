@@ -1,19 +1,75 @@
-[![Build Status](https://travis-ci.org/hubotio/hubot.svg?branch=master)](https://travis-ci.org/hubotio/hubot) [![Coverage Status](https://coveralls.io/repos/github/hubotio/hubot/badge.svg?branch=master)](https://coveralls.io/github/hubotio/hubot?branch=master)
+# Nubot
 
-# Hubot
+[hubot]: http://hubot.github.com
+[hubot-docs]: https://hubot.github.com/docs/scripting
+[hubot-async]: https://github.com/timkinnane/hubot-async
+[hubot-pretend]: https://propertyux.github.io/hubot-pretend
+[hubot-playbook]: https://timkinnane.github.io/hubot-playbook
+[generator-hubot]: https://github.com/github/generator-hubot
+[mockery]: https://www.npmjs.com/package/mockery
+[dotenv]: https://www.npmjs.com/package/dotenv
+[heroku]: http://www.heroku.com
+[standard]: https://standardjs.com/
+[babel]: https://babeljs.io/
 
-Hubot is a framework to build chat bots, modeled after GitHub's Campfire bot of the same name, hubot.
-He's pretty cool. He's [extendable with scripts](http://hubot.github.com/docs/#scripts) and can work
-on [many different chat services](https://hubot.github.com/docs/adapters/).
+*Nubot* is an evolution of [Hubot][hubot] by GitHub, pre-loaded with the
+[Playbook][hubot-playbook] framework for conversation branching and context and
+[Pretend][hubot-pretend] for unit testing.
 
-This repository provides a library that's distributed by `npm` that you
-use for building your own bots.  See the [documentation](http://hubot.github.com/docs)
-for details on getting up and running with your very own robot friend.
+## Setup
 
-In most cases, you'll probably never have to hack on this repo directly if you
-are building your own bot. But if you do, check out [CONTRIBUTING.md](CONTRIBUTING.md)
+- `yarn install nubot`
 
-If you'd like to chat with Hubot users and developers, [join us on Slack](https://hubot-slackin.herokuapp.com/).
+- See the [Hubot docs][hubot-docs] for general how-to guides and adapter
+info.
+
+- See the [Playbook docs][hubot-playbook] for using the extended features for
+conversations.
+
+- See the [Pretend docs][hubot-pretend] for guides to unit testing your
+conversations.
+
+## Compatibility
+
+*Nubot* is functionally identical to *Hubot* (v3) except for a few minor
+enhancements and bug-fixes:
+
+- *Nubot* uses [Mockery][mockery] to substitue `require('hubot')`, so legacy
+scripts and adapters _should_* work without modification.
+
+- Its middleware returns a promise instead of `undefined`, so callbacks can
+wait for asynchronous operations.
+
+- It can be executed directly as a node script, so it's easier to debug.
+
+- It comes pre-loaded with [Playbook][hubot-playbook], available to all loaded
+scripts as `robot.playbook`
+
+- Uses `dotenv` when `NODE_ENV` is `development`, for easily setting configs from local _.env_ file
+
+- Some functionality that was deprecated in Hubot has been removed entirely.
+
+\* Some adapters are not up to date with the conversion of Hubot v3 into es6.
+
+## Rationale
+
+The Hubot project is amazing, but it has a large variety of usage and approaches
+being considered for its evolution. We needed it to work seamlessly with
+Playbook extensions and some other features that are still being considered for
+Hubot's future, but we needed them today. This project may evolve into something
+new or possibly return something to Hubot core. It will take more of a 'move
+fast and break things' approach, but contributions and discussion are very
+welcome.
+
+## Roadmap
+
+- Make `generator-nubot`.
+- Update references to Hubot with Nubot.
+- Update E2E test and environment loaders with new scripts.
+- Update Express version.
+- Replace logger with Winston, integrated with Morgan for Express logs.
+- Unify docs for Nubot, Playbook, Pretend, Conditioner.
+- Update Roadmap with selected Hubot Evolution features (like multiple adapter support).
 
 ## License
 

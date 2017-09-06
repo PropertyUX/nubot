@@ -1,20 +1,28 @@
 {
-  "name": "hubot",
+  "name": "nubot",
   "version": "0.0.0-development",
   "standard": {
-     "env": [ "mocha" ]
+    "env": [
+      "mocha"
+    ]
   },
   "publishConfig": {
     "tag": "next"
   },
-  "author": "hubot",
+  "author": "PropertyUX",
   "keywords": [
     "github",
+    "nubot",
     "hubot",
+    "chatbot",
+    "bot",
     "campfire",
+    "slack",
+    "irc",
+    "rocket.chat",
     "bot"
   ],
-  "description": "A simple helpful robot for your Company",
+  "description": "A conversational context-aware chatbot",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,23 +32,25 @@
     "async": ">=0.1.0 <1.0.0",
     "chalk": "^1.0.0",
     "cline": "^0.8.2",
-    "coffee-script": "1.6.3",
+    "coffee-script": "^1.12.7",
     "connect-multiparty": "^1.2.5",
     "express": "^3.21.2",
+    "hubot-playbook": "1.0.0",
     "log": "1.4.0",
-    "optparse": "1.0.4",
     "scoped-http-client": "0.11.0"
   },
   "devDependencies": {
     "chai": "~2.1.0",
     "coveralls": "^2.13.1",
+    "dotenv": "^4.0.0",
+    "hubot-pretend": "^1.2.0",
     "mocha": "^2.1.0",
     "mockery": "^1.4.0",
     "nyc": "^11.0.2",
+    "semantic-release": "^6.3.6",
     "sinon": "~1.17.0",
     "sinon-chai": "^2.8.0",
-    "standard": "^10.0.2",
-    "semantic-release": "^6.3.6"
+    "standard": "^10.0.2"
   },
   "engines": {
     "node": "> 4.0.0",
@@ -48,10 +58,10 @@
   },
   "main": "./index",
   "bin": {
-    "hubot": "./bin/hubot"
+    "nubot": "./bin/nubot"
   },
   "scripts": {
-    "start": "bin/hubot",
+    "start": "bin/nubot",
     "pretest": "standard",
     "test": "nyc --reporter=html --reporter=text mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

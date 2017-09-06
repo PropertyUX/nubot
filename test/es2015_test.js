@@ -12,7 +12,7 @@ const mockery = require('mockery')
 const expect = chai.expect
 
 // Hubot classes
-const Hubot = require('../es2015')
+const Hubot = require('../src/es2015')
 const User = Hubot.User
 const Brain = Hubot.Brain
 const Robot = Hubot.Robot

@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const yargs = require('yargs')
+const nubot = require('..')
+
+const argv = yargs
+  .usage('$0 [args]')
+  .option('adapter', {
+    alias: 'a', default: 'shell', type: 'string', describe: 'The Adapter to use'
+  })
+  .option('disable-httpd', {
+    alias: 'd', default: false, type: 'boolean', describe: 'Disable the HTTP server'
+  })
+  .option('name', {
+    alias: 'n', default: 'nubot', type: 'string', describe: 'The name of the robot in chat'
+  })
+  .option('alias', {
+    alias: 'l', default: null, type: 'string', describe: 'Alternate name for robot in chat'
+  })
+  .option('require', {
+    alias: 'r', default: null, type: 'array', describe: 'Alternative scripts paths'
+  })
+  .version(() => {
+    return nubot.start(argv).parseVersion()
+  })
+  .help()
+  .epilogue('for more information, see https://propertyux.github.io/nubot')
+  .argv
+
+// TODO - re-instate `check` as yargs command to dry-run config
+
+if (process.platform !== 'win32') process.on('SIGTERM', () => process.exit(0))
+
+nubot.start(argv)

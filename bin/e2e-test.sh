@@ -30,7 +30,7 @@ export NODE_PATH=$NODE_PATH/$HUBOT_FOLDER/node_modules:$TEMP_ROOT/node_modules
 expect <<EOL
   set timeout 30
 
-  spawn bin/hubot --name e2etest
+  spawn bin/nubot --name e2etest
 
   # workaround for current hubot which does not show prompt until pressed enter
   # so we simulate it once 'INFO hubot-redis-brain: Using default redis on localhost:6379' appears

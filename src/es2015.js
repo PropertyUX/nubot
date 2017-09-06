@@ -1,12 +1,12 @@
 'use strict'
 
-const User = require('./src/user')
-const Brain = require('./src/brain')
-const Robot = require('./src/robot')
-const Adapter = require('./src/adapter')
-const Response = require('./src/response')
-const Listener = require('./src/listener')
-const Message = require('./src/message')
+const User = require('./user')
+const Brain = require('./brain')
+const Robot = require('./robot')
+const Adapter = require('./adapter')
+const Response = require('./response')
+const Listener = require('./listener')
+const Message = require('./message')
 
 module.exports = {
   User,
