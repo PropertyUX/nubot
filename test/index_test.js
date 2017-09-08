@@ -59,7 +59,7 @@ describe('hubot', function () {
     mockery.registerMock('hubot-mock-adapter', require('./fixtures/mock-adapter'))
 
     class MyRobot extends Robot {}
-    const robot = new MyRobot(null, 'mock-adapter', false, 'TestHubot')
+    const robot = new MyRobot('mock-adapter', false, 'TestHubot')
 
     expect(robot).to.be.an.instanceof(Robot)
     expect(robot.name).to.equal('TestHubot')

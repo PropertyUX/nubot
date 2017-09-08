@@ -501,7 +501,6 @@ class Robot {
     try {
       const isDefaultAdapter = Array.from(HUBOT_DEFAULT_ADAPTERS).indexOf(adapter) !== -1
       const path = isDefaultAdapter ? `${this.adapterPath}/${adapter}` : `hubot-${adapter}`
-      console.log('adapter path', path)
       this.adapter = require(path).use(this)
     } catch (err) {
       this.logger.error(`Cannot load adapter ${adapter} - ${err} `)

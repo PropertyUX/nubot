@@ -35,7 +35,7 @@ describe('Response', function () {
         warnOnUnregistered: false
       })
       mockery.registerMock('hubot-mock-adapter', require('./fixtures/mock-adapter'))
-      this.robot = new Robot(null, 'mock-adapter', true, 'TestHubot')
+      this.robot = new Robot('mock-adapter', true, 'TestHubot')
       this.robot.alias = 'Hubot'
       this.robot.run()
 
