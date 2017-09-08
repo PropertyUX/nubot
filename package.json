@@ -37,7 +37,8 @@
     "express": "^3.21.2",
     "hubot-playbook": "1.0.0",
     "log": "1.4.0",
-    "scoped-http-client": "0.11.0"
+    "scoped-http-client": "0.11.0",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "chai": "~2.1.0",
