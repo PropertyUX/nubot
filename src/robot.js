@@ -3,7 +3,6 @@
 const EventEmitter = require('events').EventEmitter
 const fs = require('fs')
 const path = require('path')
-require('coffee-script') // registers extension for legacy script loading
 
 const async = require('async')
 const Log = require('log')
