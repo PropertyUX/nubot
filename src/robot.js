@@ -351,7 +351,7 @@ class Robot {
 
     // see https://github.com/hubotio/hubot/issues/1355
     if (accepted.indexOf(ext) === -1) {
-      this.logger.warning(`${filename} uses unsupported extension, only ${accepted.join(', ')} are accepted`)
+      if (ext !== '.map') this.logger.warning(`${filename} uses unsupported extension, only ${accepted.join(', ')} are accepted`)
       return
     }
 
