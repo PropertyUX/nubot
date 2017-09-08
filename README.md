@@ -7,6 +7,7 @@
 [hubot-playbook]: https://timkinnane.github.io/hubot-playbook
 [generator-hubot]: https://github.com/github/generator-hubot
 [mockery]: https://www.npmjs.com/package/mockery
+[yargs]: http://yargs.js.org/docs
 [dotenv]: https://www.npmjs.com/package/dotenv
 [heroku]: http://www.heroku.com
 [standard]: https://standardjs.com/
@@ -28,6 +29,14 @@ conversations.
 
 - See the [Pretend docs][hubot-pretend] for guides to unit testing your
 conversations.
+
+## Configure
+
+- Nubot uses [Yargs][yargs] to accept command line arguments. Use `--help` for
+a guide to cli configs.
+
+- The same command line options can be given as a config file, a package.json
+key or as environment variables, with the prefix HUBOT_.
 
 ## Compatibility
 
@@ -70,6 +79,11 @@ welcome.
 - Replace logger with Winston, integrated with Morgan for Express logs.
 - Unify docs for Nubot, Playbook, Pretend, Conditioner.
 - Update Roadmap with selected Hubot Evolution features (like multiple adapter support).
+
+## Fixes
+
+- Re-instate `check` as yargs command to dry-run config
+- Add timeout for adapter connection and log error
 
 ## License
 
