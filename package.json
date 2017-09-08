@@ -6,9 +6,6 @@
       "mocha"
     ]
   },
-  "publishConfig": {
-    "tag": "next"
-  },
   "author": "PropertyUX",
   "keywords": [
     "github",
