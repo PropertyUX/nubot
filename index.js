@@ -5,7 +5,7 @@ require('coffee-script').register() // support coffee scripts
 if (process.env.NOVE_ENV === 'development') require('dotenv').config() // use local .env
 
 const fs = require('fs')
-const {resolve} = require('path')
+const resolve = require('path').resolve
 const mockery = require('mockery')
 const playbook = require('hubot-playbook')
 const args = require('./argv')
