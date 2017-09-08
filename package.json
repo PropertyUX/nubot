@@ -1,6 +1,6 @@
 {
   "name": "nubot",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "standard": {
     "env": [
       "mocha"
