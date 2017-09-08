@@ -1,31 +1,18 @@
 'use strict'
 
-if (process.env.NOVE_ENV === 'development') {
-  require('dotenv').config()
-}
+require('babel-polyfill') // support es6 scripts
+require('coffee-script').register() // support coffee scripts
+if (process.env.NOVE_ENV === 'development') require('dotenv').config() // use local .env
 
-require('coffee-script').register()
 const fs = require('fs')
 const {resolve} = require('path')
-const args = require('./argv')
-const Nubot = require('./src')
 const mockery = require('mockery')
 const playbook = require('hubot-playbook')
+const args = require('./argv')
+const Nubot = require('./src')
+const coffeeClass = require('./coffee-class')
 mockery.enable({ warnOnReplace: false, warnOnUnregistered: false })
 mockery.registerSubstitute('hubot', 'nubot')
-
-Nubot.start = function (options) {
-  let config = Object.assign({}, args, options)
-  const robot = Nubot.loadBot(
-    config.adapter,
-    config.enableHttpd,
-    config.name,
-    config.alias
-  )
-  robot.adapter.on('connected', () => loadScripts(robot, config.scripts))
-  robot.run()
-  return robot
-}
 
 function loadScripts (robot, scripts) {
   playbook.use(robot) // make playbook available to all scripts
@@ -52,4 +39,17 @@ function loadExternalScripts (robot) {
   })
 }
 
-module.exports = Nubot
+Nubot.start = function (options) {
+  let config = Object.assign({}, args, options)
+  const robot = Nubot.loadBot(
+    config.adapter,
+    config.enableHttpd,
+    config.name,
+    config.alias
+  )
+  robot.adapter.on('connected', () => loadScripts(robot, config.scripts))
+  robot.run()
+  return robot
+}
+
+module.exports = coffeeClass(Nubot)
