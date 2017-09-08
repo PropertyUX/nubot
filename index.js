@@ -7,14 +7,15 @@ if (process.env.NOVE_ENV === 'development') {
 require('coffee-script').register()
 const fs = require('fs')
 const {resolve} = require('path')
-const config = require('./argv')
+const args = require('./argv')
 const Nubot = require('./src')
 const mockery = require('mockery')
 const playbook = require('hubot-playbook')
 mockery.enable({ warnOnReplace: false, warnOnUnregistered: false })
 mockery.registerSubstitute('hubot', 'nubot')
 
-Nubot.start = function () {
+Nubot.start = function (options) {
+  let config = Object.assign({}, args, options)
   const robot = Nubot.loadBot(
     config.adapter,
     config.enableHttpd,
@@ -51,4 +52,4 @@ function loadExternalScripts (robot) {
   })
 }
 
-Nubot.start()
+module.exports = Nubot

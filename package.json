@@ -62,6 +62,7 @@
   },
   "scripts": {
     "start": "bin/nubot",
+    "debug": "node --debug start.js",
     "pretest": "standard",
     "test": "nyc --reporter=html --reporter=text mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
