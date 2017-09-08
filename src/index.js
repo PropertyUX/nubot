@@ -1,38 +1,29 @@
 'use strict'
 
-const {inherits} = require('util')
-const hubotExport = require('./es2015')
+const User = require('./user')
+const Brain = require('./brain')
+const Robot = require('./robot')
+const Adapter = require('./adapter')
+const Response = require('./response')
+const Listener = require('./listener')
+const Message = require('./message')
 
-// make all es2015 class declarations compatible with CoffeeScript’s extend
-// see https://github.com/hubotio/evolution/pull/4#issuecomment-306437501
-module.exports = Object.keys(hubotExport).reduce((map, current) => {
-  if (current !== 'loadBot') {
-    map[current] = makeClassCoffeeScriptCompatible(hubotExport[current])
-  } else {
-    map[current] = hubotExport[current]
+module.exports = {
+  User,
+  Brain,
+  Robot,
+  Adapter,
+  Response,
+  Listener: Listener.Listener,
+  TextListener: Listener.TextListener,
+  Message: Message.Message,
+  TextMessage: Message.TextMessage,
+  EnterMessage: Message.EnterMessage,
+  LeaveMessage: Message.LeaveMessage,
+  TopicMessage: Message.TopicMessage,
+  CatchAllMessage: Message.CatchAllMessage,
+
+  loadBot (adapterPath, adapterName, enableHttpd, botName, botAlias) {
+    return new module.exports.Robot(adapterPath, adapterName, enableHttpd, botName, botAlias)
   }
-  return map
-}, {})
-
-function makeClassCoffeeScriptCompatible (klass) {
-  function CoffeeScriptCompatibleClass () {
-    const Hack = Function.prototype.bind.apply(klass, [null].concat([].slice.call(arguments)))
-    const instance = new Hack()
-
-    // pass methods from child to returned instance
-    for (const key in this) {
-      instance[key] = this[key]
-    }
-
-    // support for constructor methods which call super()
-    // in which this.* properties are set
-    for (const key in instance) {
-      this[key] = instance[key]
-    }
-
-    return instance
-  }
-  inherits(CoffeeScriptCompatibleClass, klass)
-
-  return CoffeeScriptCompatibleClass
 }

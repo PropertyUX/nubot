@@ -22,11 +22,10 @@ class Robot {
   // Robots receive messages from a chat source (Campfire, irc, etc), and
   // dispatch them to matching listeners.
   //
-  // adapterPath -  A String of the path to built-in adapters (defaults to src/adapters)
   // adapter     - A String of the adapter name.
   // httpd       - A Boolean whether to enable the HTTP daemon.
   // name        - A String of the robot name, defaults to Hubot.
-  constructor (adapterPath, adapter, httpd, name, alias) {
+  constructor (adapter, httpd, name, alias) {
     if (name == null) {
       name = 'Hubot'
     }
@@ -501,11 +500,13 @@ class Robot {
     this.logger.debug(`Loading adapter ${adapter}`)
 
     try {
-      const path = Array.from(HUBOT_DEFAULT_ADAPTERS).indexOf(adapter) !== -1 ? `${this.adapterPath}/${adapter}` : `hubot-${adapter}`
-
+      const isDefaultAdapter = Array.from(HUBOT_DEFAULT_ADAPTERS).indexOf(adapter) !== -1
+      const path = isDefaultAdapter ? `${this.adapterPath}/${adapter}` : `hubot-${adapter}`
+      console.log('adapter path', path)
       this.adapter = require(path).use(this)
     } catch (err) {
-      this.logger.error(`Cannot load adapter ${adapter} - ${err}`)
+      this.logger.error(`Cannot load adapter ${adapter} - ${err} `)
+      console.error(err)
       process.exit(1)
     }
   }

@@ -1,6 +1,5 @@
 'use strict'
 
-/* global describe, it */
 /* eslint-disable no-unused-expressions */
 
 // Assertions and Stubbing
@@ -12,7 +11,7 @@ const mockery = require('mockery')
 const expect = chai.expect
 
 // Hubot classes
-const Hubot = require('../src/es2015')
+const Hubot = require('../src')
 const User = Hubot.User
 const Brain = Hubot.Brain
 const Robot = Hubot.Robot
@@ -28,7 +27,7 @@ const TopicMessage = Hubot.TopicMessage
 const CatchAllMessage = Hubot.CatchAllMessage
 const loadBot = Hubot.loadBot
 
-describe('hubot/es2015', function () {
+describe('hubot', function () {
   it('exports User class', function () {
     class MyUser extends User {}
     const user = new MyUser('id123', {foo: 'bar'})
