@@ -581,7 +581,7 @@ class Robot {
   send (envelope/* , ...strings */) {
     const strings = [].slice.call(arguments, 1)
 
-    this.adapter.send.apply(this, [envelope].concat(strings))
+    this.adapter.send.apply(this.adapter, [envelope].concat(strings))
   }
 
   // Public: A helper reply function which delegates to the adapter's reply
@@ -594,7 +594,7 @@ class Robot {
   reply (envelope/* , ...strings */) {
     const strings = [].slice.call(arguments, 1)
 
-    this.adapter.reply.apply(this, [envelope].concat(strings))
+    this.adapter.reply.apply(this.adapter, [envelope].concat(strings))
   }
 
   // Public: A helper send function to message a room that the robot is in.
@@ -607,7 +607,7 @@ class Robot {
     const strings = [].slice.call(arguments, 1)
     const envelope = { room }
 
-    this.adapter.send.apply(this, [envelope].concat(strings))
+    this.adapter.send.apply(this.adapter, [envelope].concat(strings))
   }
 
   // Public: A wrapper around the EventEmitter API to make usage
@@ -621,7 +621,7 @@ class Robot {
   on (event/* , ...args */) {
     const args = [].slice.call(arguments, 1)
 
-    this.events.on.apply(this, [event].concat(args))
+    this.events.on.apply(this.events, [event].concat(args))
   }
 
   // Public: A wrapper around the EventEmitter API to make usage
@@ -634,7 +634,7 @@ class Robot {
   emit (event/* , ...args */) {
     const args = [].slice.call(arguments, 1)
 
-    this.events.emit.apply(this, [event].concat(args))
+    this.events.emit.apply(this.events, [event].concat(args))
   }
 
   // Public: Kick off the event loop for the adapter
