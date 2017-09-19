@@ -1686,9 +1686,9 @@ hubot-async@v3.0.1-async:
     optparse "1.0.4"
     scoped-http-client "0.11.0"
 
-hubot-playbook@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/hubot-playbook/-/hubot-playbook-1.0.0.tgz#0b16ad42865a34c70f57836023f238269491fb38"
+hubot-playbook@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/hubot-playbook/-/hubot-playbook-1.0.1.tgz#0d88f5eac257f8a4782bbdd4b5adff2d36c5b512"
   dependencies:
     hooker "^0.2.3"
     lodash "^4.17.4"
@@ -3945,7 +3945,7 @@ yargs-parser@^7.0.0:
   dependencies:
     camelcase "^4.1.0"
 
-yargs@^8.0.1:
+yargs@^8.0.1, yargs@^8.0.2:
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.2.tgz#6299a9055b1cefc969ff7e79c1d918dceb22c360"
   dependencies:
