@@ -68,7 +68,9 @@ class Listener {
     const match = this.matcher(message)
     if (match) {
       if (this.regex) {
-        this.robot.logger.debug(`Message '${message}' matched regex /${inspect(this.regex)}/; listener.options = ${inspect(this.options)}`)
+        let matcherLog = `Message '${message}' matched regex /${inspect(this.regex)}/`
+        if (this.options.id) matcherLog += ` (listener ID ${this.options.id})`
+        this.robot.logger.debug(matcherLog)
       }
 
       // special middleware-like function that always executes the Listener's
