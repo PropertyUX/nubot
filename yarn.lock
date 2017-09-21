@@ -218,7 +218,7 @@ async@^1.4.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.0.1:
+async@^2.0.1, async@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
   dependencies:
@@ -1640,10 +1640,6 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-hooker@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/hooker/-/hooker-0.2.3.tgz#b834f723cc4a242aa65963459df6d984c5d3d959"
-
 hosted-git-info@^2.1.4, hosted-git-info@^2.1.5:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.5.0.tgz#6d60e34b3abbc8313062c3b798ef8d901a07af3c"
@@ -1686,13 +1682,12 @@ hubot-async@v3.0.1-async:
     optparse "1.0.4"
     scoped-http-client "0.11.0"
 
-hubot-playbook@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/hubot-playbook/-/hubot-playbook-1.0.1.tgz#0d88f5eac257f8a4782bbdd4b5adff2d36c5b512"
+hubot-playbook@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/hubot-playbook/-/hubot-playbook-1.1.0.tgz#2bc50a193ad5b1d97e002b481ebfbb64c71b01e9"
   dependencies:
-    hooker "^0.2.3"
+    async "^2.5.0"
     lodash "^4.17.4"
-    yamljs "^0.3.0"
 
 hubot-pretend@^1.2.0:
   version "1.2.0"
@@ -3925,13 +3920,6 @@ y18n@^3.2.1:
 yallist@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
-
-yamljs@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/yamljs/-/yamljs-0.3.0.tgz#dc060bf267447b39f7304e9b2bfbe8b5a7ddb03b"
-  dependencies:
-    argparse "^1.0.7"
-    glob "^7.0.5"
 
 yargs-parser@^5.0.0:
   version "5.0.0"
