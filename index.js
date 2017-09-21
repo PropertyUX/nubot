@@ -43,7 +43,7 @@ Nubot.start = function (options) {
   let config = Object.assign({}, args, options)
   const robot = Nubot.loadBot(
     config.adapter,
-    config.enableHttpd,
+    config.httpd,
     config.name,
     config.alias
   )
