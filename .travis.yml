@@ -9,7 +9,6 @@ addons:
     packages:
     - expect
 before_script:
-  - npm prune
   - npm test
   # - bin/e2e-test.sh
 after_success:
