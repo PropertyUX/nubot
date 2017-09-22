@@ -8,9 +8,6 @@ addons:
   apt:
     packages:
     - expect
-before_script:
-  - npm test
-  # - bin/e2e-test.sh
 after_success:
   - npm run coveralls
   - npm run semantic-release
