@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  - "6"
-  - "4"
+  - "8"
 notifications:
   email: false
 sudo: false
@@ -14,7 +13,7 @@ before_script:
   - npm test
   # - bin/e2e-test.sh
 after_success:
-  - npm run coverage
+  - npm run coveralls
   - npm run semantic-release
 branches:
   except:

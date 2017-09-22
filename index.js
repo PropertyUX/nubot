@@ -1,6 +1,5 @@
 'use strict'
 
-require('babel-polyfill') // support es6 scripts
 require('coffee-script').register() // support coffee scripts
 if (process.env.NOVE_ENV === 'development') require('dotenv').config() // use local .env
 

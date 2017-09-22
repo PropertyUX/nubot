@@ -1,6 +1,5 @@
 {
   "name": "nubot",
-  "version": "0.0.6",
   "standard": {
     "env": [
       "mocha"
@@ -39,32 +38,40 @@
   },
   "devDependencies": {
     "chai": "~2.1.0",
+    "commitizen": "^2.9.6",
     "coveralls": "^2.13.1",
     "dotenv": "^4.0.0",
     "hubot-pretend": "^1.2.0",
     "mocha": "^2.1.0",
     "mockery": "^1.4.0",
-    "nyc": "^11.0.2",
-    "semantic-release": "^6.3.6",
+    "nyc": "^11.2.1",
+    "semantic-release": "^8.0.3",
     "sinon": "~1.17.0",
     "sinon-chai": "^2.8.0",
     "standard": "^10.0.2"
   },
   "engines": {
-    "node": "> 4.0.0",
-    "npm": "> 2.0.0"
+    "node": "> 8.0.0",
+    "npm": "> 5.0.0"
   },
   "main": "./index",
   "bin": {
     "nubot": "./bin/nubot"
   },
+  "nyc": {
+    "reporter": [
+      "lcovonly",
+      "text"
+    ]
+  },
   "scripts": {
     "start": "bin/nubot",
     "debug": "node --debug start.js",
     "pretest": "standard",
-    "test": "nyc --reporter=html --reporter=text mocha",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test": "nyc mocha test",
     "test:smoke": "node src/**/*.js",
+    "commit": "git add -A && git status -s && git-cz",
+    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }
