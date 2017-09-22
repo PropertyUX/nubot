@@ -48,7 +48,7 @@
     "semantic-release": "^8.0.3",
     "sinon": "~1.17.0",
     "sinon-chai": "^2.8.0",
-    "standard": "^10.0.2"
+    "standard": "^10.0.3"
   },
   "engines": {
     "node": "> 8.0.0",
@@ -73,5 +73,6 @@
     "commit": "git add -A && git status -s && git-cz",
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
-  }
+  },
+  "version": "0.0.0-development"
 }
