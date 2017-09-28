@@ -1892,9 +1892,9 @@ hubot-async@v3.0.1-async:
     optparse "1.0.4"
     scoped-http-client "0.11.0"
 
-hubot-playbook@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/hubot-playbook/-/hubot-playbook-1.1.4.tgz#137f3071eee1431eb4e21686afa3b149b0b52257"
+hubot-playbook@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/hubot-playbook/-/hubot-playbook-1.1.5.tgz#6c01dc5e1f4950578e35cda41ff191df9e870165"
   dependencies:
     async "^2.5.0"
     lodash "^4.17.4"

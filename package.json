@@ -31,7 +31,7 @@
     "coffee-script": "^1.12.7",
     "connect-multiparty": "^1.2.5",
     "express": "^3.21.2",
-    "hubot-playbook": "^1.1.4",
+    "hubot-playbook": "^1.1.5",
     "log": "1.4.0",
     "scoped-http-client": "0.11.0",
     "yargs": "^8.0.2"
