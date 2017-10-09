@@ -64,8 +64,6 @@ const getArgv = (robot) => yargs
   })
   .argv
 
-// TODO - re-instate `check` as yargs command to dry-run config
-
 if (process.platform !== 'win32') process.on('SIGTERM', () => process.exit(0))
 
 // call on require to just returns the options
