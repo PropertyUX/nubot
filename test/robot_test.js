@@ -464,7 +464,7 @@ describe('Robot', function () {
         })
 
         it('logs a warning', function () {
-          sinon.stub(this.robot.logger, 'warning')
+          this.sandbox.stub(this.robot.logger, 'warning')
           this.robot.loadFile('./scripts', 'test-script.js')
           expect(this.robot.logger.warning).to.have.been.called
         })

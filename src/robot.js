@@ -3,16 +3,14 @@
 const EventEmitter = require('events').EventEmitter
 const fs = require('fs')
 const path = require('path')
-
 const async = require('async')
-const Log = require('log')
 const HttpClient = require('scoped-http-client')
-
 const Brain = require('./brain')
 const Response = require('./response')
 const Listener = require('./listener')
 const Message = require('./message')
 const Middleware = require('./middleware')
+const logger = require('./logger')
 
 const HUBOT_DEFAULT_ADAPTERS = ['campfire', 'shell']
 const HUBOT_DOCUMENTATION_SECTIONS = ['description', 'dependencies', 'configuration', 'commands', 'notes', 'author', 'authors', 'examples', 'tags', 'urls']
@@ -25,15 +23,12 @@ class Robot {
   // httpd       - A Boolean whether to enable the HTTP daemon.
   // name        - A String of the robot name, defaults to Hubot.
   constructor (adapter, httpd, name, alias) {
-    if (name == null) {
-      name = 'Hubot'
-    }
-    if (alias == null) {
-      alias = false
-    }
+    if (name == null) name = 'Hubot'
+    if (alias == null) alias = false
     this.adapterPath = path.join(__dirname, 'adapters')
 
     this.name = name
+    this.logger = logger
     this.events = new EventEmitter()
     this.brain = new Brain(this)
     this.alias = alias
@@ -46,28 +41,19 @@ class Robot {
       response: new Middleware(this),
       receive: new Middleware(this)
     }
-    this.logger = new Log(process.env.HUBOT_LOG_LEVEL || 'info')
     this.pingIntervalId = null
     this.globalHttpOptions = {}
 
     this.parseVersion()
-    if (httpd) {
-      this.setupExpress()
-    } else {
-      this.setupNullRouter()
-    }
+    if (httpd) this.setupExpress()
+    else this.setupNullRouter()
 
     this.loadAdapter(adapter)
-
     this.adapterName = adapter
-    this.errorHandlers = []
 
-    this.on('error', (err, res) => {
-      return this.invokeErrorHandlers(err, res)
-    })
-    this.onUncaughtException = err => {
-      return this.emit('error', err)
-    }
+    this.errorHandlers = []
+    this.on('error', (err, res) => this.invokeErrorHandlers(err, res))
+    this.onUncaughtException = (err) => this.emit('error', err)
     process.on('uncaughtException', this.onUncaughtException)
   }
 
