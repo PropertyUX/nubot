@@ -1,13 +1,8 @@
 language: node_js
-node_js:
-  - "8"
 notifications:
   email: false
-sudo: false
-addons:
-  apt:
-    packages:
-    - expect
+node_js:
+  - '8'
 after_success:
   - npm run coveralls
   - npm run semantic-release
