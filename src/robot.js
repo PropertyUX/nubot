@@ -22,7 +22,10 @@ class Robot {
   // adapter     - A String of the adapter name.
   // httpd       - A Boolean whether to enable the HTTP daemon.
   // name        - A String of the robot name, defaults to Hubot.
-  constructor (adapter, httpd, name, alias) {
+  constructor (adapterName, httpd, name, alias, logLevel) {
+    logger.level = logLevel
+    logger.debug(`Robot created with adapter: ${adapterName}, httpd: ${httpd}, name: ${name}, alias: ${alias}, logLevel: ${logLevel}`)
+
     if (name == null) name = 'Hubot'
     if (alias == null) alias = false
     this.adapterPath = path.join(__dirname, 'adapters')
@@ -32,6 +35,7 @@ class Robot {
     this.events = new EventEmitter()
     this.brain = new Brain(this)
     this.alias = alias
+    this.adapterName = adapterName
     this.adapter = null
     this.Response = Response
     this.commands = []
@@ -48,8 +52,7 @@ class Robot {
     if (httpd) this.setupExpress()
     else this.setupNullRouter()
 
-    this.loadAdapter(adapter)
-    this.adapterName = adapter
+    this.loadAdapter(adapterName)
 
     this.errorHandlers = []
     this.on('error', (err, res) => this.invokeErrorHandlers(err, res))

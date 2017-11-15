@@ -1,5 +1,8 @@
 'use strict'
 
+// TODO logger conflicts with coffeeClass, re-instate when CS depreciated
+
+// const logger = require('./logger')
 const User = require('./user')
 const Brain = require('./brain')
 const Robot = require('./robot')
@@ -9,6 +12,7 @@ const Listener = require('./listener')
 const Message = require('./message')
 
 module.exports = {
+  // logger,
   User,
   Brain,
   Robot,
@@ -23,7 +27,7 @@ module.exports = {
   TopicMessage: Message.TopicMessage,
   CatchAllMessage: Message.CatchAllMessage,
 
-  loadBot (adapterName, enableHttpd, botName, botAlias) {
-    return new module.exports.Robot(adapterName, enableHttpd, botName, botAlias)
+  loadBot (adapterName, enableHttpd, botName, botAlias, logLevel) {
+    return new module.exports.Robot(adapterName, enableHttpd, botName, botAlias, logLevel)
   }
 }

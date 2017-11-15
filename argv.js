@@ -15,6 +15,11 @@ const getArgv = (robot) => yargs
     default: 'shell'
   })
   .example('adapter', 'bin/nubot -a rocketchat (will require "hubot-rocketchat")')
+  .option('log-level', {
+    type: 'string',
+    describe: 'The starting minimum level for logging events (silent|degug|info|warning|error).\n',
+    default: 'info'
+  })
   .option('httpd', {
     type: 'boolean',
     describe: 'Enable the HTTP server.\nThis option added to keep cli args consistent with internal options.\n',

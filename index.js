@@ -44,7 +44,8 @@ Nubot.start = function (options) {
     config.adapter,
     config.httpd,
     config.name,
-    config.alias
+    config.alias,
+    config.logLevel
   )
   robot.adapter.on('connected', () => loadScripts(robot, config.scripts))
   robot.run()

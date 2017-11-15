@@ -3,13 +3,25 @@ const winston = require('winston')
 // write errors to error file, all above debug to combined file, console everything
 const logger = winston.createLogger({
   level: process.env.NUBOT_LOG_LEVEL || process.env.HUBOT_LOG_LEVEL || 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()
-  ),
   transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error', maxsize: 500000 }),
-    new winston.transports.File({ filename: 'combined.log', level: 'debug', maxsize: 500000 }),
+    new winston.transports.File({
+      filename: 'error.log',
+      level: 'error',
+      maxsize: 500000,
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
+    }),
+    new winston.transports.File({
+      filename: 'combined.log',
+      level: 'debug',
+      maxsize: 500000,
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
+    }),
     new winston.transports.Console({
       format: winston.format.combine(
         winston.format.colorize({ message: true }),
@@ -21,6 +33,8 @@ const logger = winston.createLogger({
 
 // export shortcuts to npm level log entries
 module.exports = {
+  get level () { return logger.level },
+  set level (lvl) { logger.level = lvl },
   error: (...args) => logger.log('error', ...args),
   warn: (...args) => logger.log('warn', ...args),
   warning: (...args) => logger.log('warn', ...args), // legacy support
