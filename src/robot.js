@@ -364,23 +364,22 @@ class Robot {
   // path - A String path on the filesystem.
   //
   // Returns nothing.
-  load (path) {
-    this.logger.debug(`Loading scripts from ${path}`)
-
-    if (fs.existsSync(path)) {
-      fs.readdirSync(path).sort().map(file => this.loadFile(path, file))
+  load (filepath) {
+    this.logger.debug(`Loading script/s from ${filepath}`)
+    if (fs.existsSync(filepath)) {
+      let pathStats = fs.statSync(filepath)
+      if (pathStats.isFile()) {
+        let {root, dir, base} = path.parse(filepath)
+        this.loadFile(path.join(root, dir), base)
+      } else {
+        fs.readdirSync(filepath)
+          .sort()
+          .map(file => this.loadFile(filepath, file))
+      }
+    } else {
+      // TODO: reinstate after index refactored to only load single script path
+      // this.logger.error(`No file/s found at path ${filepath}`)
     }
-  }
-
-  // Public: Load scripts specified in the `hubot-scripts.json` file.
-  //
-  // path    - A String path to the hubot-scripts files.
-  // scripts - An Array of scripts to load.
-  //
-  // Returns nothing.
-  loadHubotScripts (path, scripts) {
-    this.logger.debug(`Loading hubot-scripts from ${path}`)
-    Array.from(scripts).map(script => this.loadFile(path, script))
   }
 
   // Public: Load scripts from packages specified in the

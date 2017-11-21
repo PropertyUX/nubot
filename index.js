@@ -13,8 +13,10 @@ const coffeeClass = require('./coffee-class')
 mockery.enable({ warnOnReplace: false, warnOnUnregistered: false })
 mockery.registerSubstitute('hubot', 'nubot')
 
+// TODO: refactor all script loading as robot methods
+// This attempts to load two fixed paths before using options, so it would load
+// all three if they existed. The option should *override* the default, not add.
 function loadScripts (robot, scripts) {
-  playbook.use(robot) // make playbook available to all scripts
   robot.load(resolve('.', 'scripts'))
   robot.load(resolve('.', 'src', 'scripts'))
   loadExternalScripts(robot)
@@ -47,6 +49,7 @@ Nubot.start = function (options) {
     config.alias,
     config.logLevel
   )
+  playbook.use(robot) // make playbook available to all scripts
   robot.adapter.on('connected', () => loadScripts(robot, config.scripts))
   robot.run()
   return robot
