@@ -11,7 +11,6 @@
 [dotenv]: https://www.npmjs.com/package/dotenv
 [heroku]: http://www.heroku.com
 [standard]: https://standardjs.com/
-[babel]: https://babeljs.io/
 
 *Nubot* is an evolution of [Hubot][hubot] by GitHub, pre-loaded with the
 [Playbook][hubot-playbook] framework for conversation branching and context and

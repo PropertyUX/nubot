@@ -111,6 +111,7 @@ class Brain extends EventEmitter {
   // Returns nothing.
   //
   // Caveats: Deeply nested structures don't merge well.
+  // TODO: Merge recursive, including concat arrays in properties with same key
   mergeData (data) {
     for (let k in data || {}) {
       this.data[k] = data[k]

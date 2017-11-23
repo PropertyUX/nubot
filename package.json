@@ -1,5 +1,6 @@
 {
   "name": "nubot",
+  "description": "A conversational context-aware chatbot",
   "standard": {
     "env": [
       "mocha"
@@ -18,7 +19,6 @@
     "rocket.chat",
     "bot"
   ],
-  "description": "A conversational context-aware chatbot",
   "license": "MIT",
   "repository": {
     "type": "git",
