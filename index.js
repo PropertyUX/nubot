@@ -50,7 +50,7 @@ Nubot.start = function (options) {
     config.logLevel
   )
   playbook.use(robot) // make playbook available to all scripts
-  robot.adapter.on('connected', () => loadScripts(robot, config.scripts))
+  robot.adapter.once('connected', () => loadScripts(robot, config.scripts))
   robot.run()
   return robot
 }
