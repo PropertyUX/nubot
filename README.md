@@ -79,6 +79,8 @@ welcome.
 
 ## Fixes
 
+- Add dotenv for test environment vars including `NODE_ENV`
+- Run local mongodb dev dependency for tests
 - Re-instate `check` as yargs command to dry-run config
 - Add timeout for adapter connection and log error
 
