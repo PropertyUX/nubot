@@ -75,9 +75,7 @@ welcome.
 - Update references to Hubot with Nubot.
 - Update E2E test and environment loaders with new scripts.
 - Update Express version.
-- Replace logger with Winston, integrated with Morgan for Express logs.
 - Unify docs for Nubot, Playbook, Pretend, Conditioner.
-- Update Roadmap with selected Hubot Evolution features (like multiple adapter support).
 
 ## Fixes
 
