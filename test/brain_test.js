@@ -6,6 +6,7 @@
 // Assertions and Stubbing
 const chai = require('chai')
 const sinon = require('sinon')
+const should = chai.should()
 chai.use(require('sinon-chai'))
 
 const expect = chai.expect
@@ -19,7 +20,13 @@ describe('Brain', function () {
     this.clock = sinon.useFakeTimers()
     this.mockRobot = {
       emit () {},
-      on () {}
+      on () {},
+      logger: {
+        log: [],
+        debug: function (text) { this.log.push(['debug', text]) },
+        info: function (text) { this.log.push(['info', text]) },
+        error: function (text) { this.log.push(['error', text]) }
+      }
     }
 
     // This *should* be callsArgAsync to match the 'on' API, but that makes
@@ -27,6 +34,7 @@ describe('Brain', function () {
     sinon.stub(this.mockRobot, 'on').withArgs('running').callsArg(1)
 
     this.brain = new Brain(this.mockRobot)
+    this.mockRobot.brain = this.brain
 
     this.user1 = this.brain.userForId('1', {name: 'Guy One'})
     this.user2 = this.brain.userForId('2', {name: 'Guy One Two'})
@@ -307,6 +315,35 @@ describe('Brain', function () {
       const result = this.brain.usersForFuzzyName('Guy')
       expect(result).to.have.members([this.user1, this.user2])
       expect(result).to.not.have.members([this.user3])
+    })
+  })
+
+  describe('Using DB storage module', function () {
+    before(function () {
+      process.env.MONGODB_URL = 'mongodb://localhost/nubot-brain-testing'
+      process.env.BRAIN_COLLECTION = 'nubot-test'
+    })
+    beforeEach(function () {
+      this.clock.restore() // mongoose requires timestamps
+      this.storage = require('nubot-mongodb-brain')(this.mockRobot)
+    })
+    it('emits connection event', function (done) {
+      this.brain.once('loaded', () => done())
+    })
+    it('saves private data to DB', function (done) {
+      this.brain.once('loaded', () => {
+        this.storage.then((connection) => {
+          this.brain.once('loaded', () => {
+            connection.models['nubot-test'].find({}).exec((err, docs) => {
+              should.not.exist(err)
+              docs[0].value.should.eql({ foo: 'bar' })
+              done()
+            })
+          })
+          this.brain.set('test_data', { foo: 'bar' })
+          this.brain.save()
+        })
+      })
     })
   })
 })

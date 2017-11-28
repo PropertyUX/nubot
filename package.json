@@ -25,6 +25,7 @@
     "url": "git@github.com:PropertyUX/nubot.git"
   },
   "dependencies": {
+    "app-root-path": "^2.0.1",
     "async": ">=0.1.0 <1.0.0",
     "chalk": "^1.0.0",
     "cline": "^0.8.2",
@@ -44,6 +45,7 @@
     "hubot-pretend": "^1.2.0",
     "mocha": "^2.1.0",
     "mockery": "^1.4.0",
+    "nubot-mongodb-brain": "^0.0.0",
     "nyc": "^11.2.1",
     "semantic-release": "^8.0.3",
     "sinon": "~1.17.0",
@@ -67,7 +69,7 @@
   "scripts": {
     "start": "bin/nubot",
     "shell": "node start.js -a shell --scripts test/scripts/shell.js",
-    "debug": "node --debug start.js",
+    "debug": "node --inspect --inspect-brk start.js -a shell",
     "pretest": "standard",
     "test": "nyc mocha test",
     "test:smoke": "node src/**/*.js",

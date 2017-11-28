@@ -4,6 +4,10 @@ const EventEmitter = require('events').EventEmitter
 
 const User = require('./user')
 
+// TODO: Refactor brain as base class to be extended with DB connection methods
+// instead of emitting events with all data. Event names should be more semantic
+// as well, using 'connected' and 'loaded' appropriately as per adapter pattern.
+
 class Brain extends EventEmitter {
   // Represents somewhat persistent storage for the robot. Extend this.
   //
@@ -40,7 +44,6 @@ class Brain extends EventEmitter {
     })
 
     this.emit('loaded', this.data)
-
     return this
   }
 

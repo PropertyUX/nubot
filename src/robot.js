@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 const async = require('async')
 const HttpClient = require('scoped-http-client')
+const rootPath = require('app-root-path')
 const Brain = require('./brain')
 const Response = require('./response')
 const Listener = require('./listener')
@@ -22,9 +23,9 @@ class Robot {
   // adapter     - A String of the adapter name.
   // httpd       - A Boolean whether to enable the HTTP daemon.
   // name        - A String of the robot name, defaults to Hubot.
-  constructor (adapterName, httpd, name, alias, logLevel) {
+  constructor (adapterName, storageAdapter, httpd, name, alias, logLevel) {
     logger.level = logLevel
-    logger.debug(`Robot created with adapter: ${adapterName}, httpd: ${httpd}, name: ${name}, alias: ${alias}, logLevel: ${logLevel}`)
+    logger.debug(`Robot created with adapter: ${adapterName}, storage: ${storageAdapter}, httpd: ${httpd}, name: ${name}, alias: ${alias}, logLevel: ${logLevel}`)
 
     if (name == null) name = 'Hubot'
     if (alias == null) alias = false
@@ -35,8 +36,8 @@ class Robot {
     this.events = new EventEmitter()
     this.brain = new Brain(this)
     this.alias = alias
-    this.adapterName = adapterName
     this.adapter = null
+    this.storageAdapter = null
     this.Response = Response
     this.commands = []
     this.listeners = []
@@ -52,6 +53,7 @@ class Robot {
     if (httpd) this.setupExpress()
     else this.setupNullRouter()
 
+    this.loadStorageAdapter(storageAdapter)
     this.loadAdapter(adapterName)
 
     this.errorHandlers = []
@@ -327,6 +329,29 @@ class Robot {
     })
   }
 
+  // Public: Loads every script in the given path.
+  //
+  // path - A String path on the filesystem.
+  //
+  // Returns nothing.
+  load (filepath) {
+    this.logger.debug(`Loading script/s from ${filepath}`)
+    if (fs.existsSync(filepath)) {
+      let pathStats = fs.statSync(filepath)
+      if (pathStats.isFile()) {
+        let {root, dir, base} = path.parse(filepath)
+        this.loadFile(path.join(root, dir), base)
+      } else {
+        fs.readdirSync(filepath)
+          .sort()
+          .map(file => this.loadFile(filepath, file))
+      }
+    } else {
+      // TODO: reinstate after index refactored to only load single script path
+      // this.logger.error(`No file/s found at path ${filepath}`)
+    }
+  }
+
   // Public: Loads a file in path.
   //
   // filepath - A String path on the filesystem.
@@ -359,48 +384,43 @@ class Robot {
     }
   }
 
-  // Public: Loads every script in the given path.
-  //
-  // path - A String path on the filesystem.
-  //
-  // Returns nothing.
-  load (filepath) {
-    this.logger.debug(`Loading script/s from ${filepath}`)
-    if (fs.existsSync(filepath)) {
-      let pathStats = fs.statSync(filepath)
-      if (pathStats.isFile()) {
-        let {root, dir, base} = path.parse(filepath)
-        this.loadFile(path.join(root, dir), base)
-      } else {
-        fs.readdirSync(filepath)
-          .sort()
-          .map(file => this.loadFile(filepath, file))
-      }
-    } else {
-      // TODO: reinstate after index refactored to only load single script path
-      // this.logger.error(`No file/s found at path ${filepath}`)
-    }
+  // Load scripts from a specified path, relative to app root
+  loadScripts (scriptsPath = 'scripts') {
+    scriptsPath = rootPath.resolve(scriptsPath)
+    this.logger.debug(`Loading scripts from ${scriptsPath}`)
+    if (!Array.isArray(scriptsPath)) scriptsPath = [scriptsPath]
+    scriptsPath.forEach((scriptsPath) => {
+      if (scriptsPath[0] === '/') return this.load(scriptsPath)
+      this.load(rootPath.resolve(scriptsPath))
+    })
   }
 
-  // Public: Load scripts from packages specified in the
-  // `external-scripts.json` file.
+  // Extend brain storage from given package
+
+  // Public: Load scripts from packages specified in `package-scripts.json`
   //
-  // packages - An Array of packages containing hubot scripts to load.
-  //
+  // TODO: Make this and all loaders return promise for async loading.
   // Returns nothing.
-  loadExternalScripts (packages) {
-    this.logger.debug('Loading external-scripts from npm packages')
-
-    try {
-      if (Array.isArray(packages)) {
-        return packages.forEach(pkg => require(pkg)(this))
-      }
-
-      Object.keys(packages).forEach(key => require(key)(this, packages[key]))
-    } catch (error) {
-      this.logger.error(`Error loading scripts from npm package - ${error.stack}`)
-      process.exit(1)
+  loadPackages () {
+    const packageScripts = rootPath.resolve('package-scripts.json')
+    if (!fs.existsSync(packageScripts)) {
+      return this.logger.debug('No package-scripts required')
     }
+    this.logger.debug('Loading package-scripts from npm packages')
+    fs.readFile(packageScripts, function (error, contents) {
+      try {
+        if (error) throw error
+        let packages = JSON.parse(contents)
+        if (!Array.isArray(packages)) {
+          this.logger.warning('package-scripts.json did contain JSON array')
+        } else {
+          packages.forEach((pkg) => require(pkg)(this))
+        }
+      } catch (error) {
+        this.logger.error(`Error loading scripts from npm package - ${error.stack}`)
+        process.exit(1)
+      }
+    })
   }
 
   // Setup the Express server's defaults.
@@ -494,6 +514,22 @@ class Robot {
       this.logger.error(`Cannot load adapter ${adapter} - ${err} `)
       console.error(err)
       process.exit(1)
+    }
+  }
+
+  // Require package that will extend brain with external storage connection
+  // TODO: Refactor generic 'adapter' to be 'messageAdapter', both to be async
+  // TODO: Make storage adapters extend brain, instead of listening for emits
+  //       - storage adapter package should overwrite classes conenct and save
+  //       - should provide connection property for scripts and extension usage
+  loadStorageAdapter (adapter) {
+    if (!adapter | adapter === '') {
+      this.logger.debug('No storage adapter in use, brain data will be lost.')
+      this.brain.connection = null
+      this.brain.emit('connected')
+    } else {
+      this.brain.once('loaded', () => this.brain.emit('connected')) // workaround (until adapter has connect method)
+      this.storageAdapter = require(adapter)(this)
     }
   }
 

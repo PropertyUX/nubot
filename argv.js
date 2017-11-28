@@ -15,6 +15,11 @@ const getArgv = (robot) => yargs
     default: 'shell'
   })
   .example('adapter', 'bin/nubot -a rocketchat (will require "hubot-rocketchat")')
+  .option('storageAdapter', {
+    alias: 's',
+    type: 'string',
+    describe: 'The package name to require for storing brain data key-value pairs (e.g. to Redis or MongoDB)'
+  })
   .option('log-level', {
     type: 'string',
     describe: 'The starting minimum level for logging events (silent|degug|info|warning|error).\n',
