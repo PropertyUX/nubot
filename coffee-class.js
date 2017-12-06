@@ -8,7 +8,7 @@ const util = require('util')
  * Pass methods from child to returned instance.
  * Support for constructor methods which call super() in which this.* properties are set.
  *
- * @param       {Object} JavascriptClass An exported JS class
+ * @param       {Object} JavascriptClass Module exports, containing JS classes
  */
 function makeClassCoffeeScriptCompatible (JavascriptClass) {
   function CoffeeScriptCompatibleClass () {

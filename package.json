@@ -33,7 +33,7 @@
     "connect-multiparty": "^1.2.5",
     "dotenv": "^4.0.0",
     "express": "^3.21.2",
-    "hubot-playbook": "^1.4.0",
+    "nubot-playbook": "^1.0.0",
     "scoped-http-client": "0.11.0",
     "winston": "3.0.0-rc0",
     "yargs": "^8.0.2"

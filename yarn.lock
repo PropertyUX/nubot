@@ -1996,13 +1996,6 @@ hubot-async@v3.0.1-async:
     optparse "1.0.4"
     scoped-http-client "0.11.0"
 
-hubot-playbook@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/hubot-playbook/-/hubot-playbook-1.4.0.tgz#d57672d06bfd76084e44fdfa86624011cf5c9486"
-  dependencies:
-    async "^2.5.0"
-    lodash "^4.17.4"
-
 hubot-pretend@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hubot-pretend/-/hubot-pretend-1.2.0.tgz#4268e174b41cf9e4d60c2c83e33e5c7afb5b249f"
@@ -3047,6 +3040,13 @@ nubot-connect-mongo@^0.1.0:
     lodash "^4.17.4"
     mongoose "^4.13.4"
     mongoose-timestamp "^0.6.0"
+
+nubot-playbook@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nubot-playbook/-/nubot-playbook-1.0.0.tgz#87fd39b15106b1b65f255802d78fadd2350eae1a"
+  dependencies:
+    async "^2.5.0"
+    lodash "^4.17.4"
 
 number-is-nan@^1.0.0:
   version "1.0.1"
