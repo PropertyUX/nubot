@@ -386,10 +386,10 @@ class Robot {
 
   // Load scripts from a specified path, relative to app root
   loadScripts (scriptsPath = 'scripts') {
-    scriptsPath = rootPath.resolve(scriptsPath)
-    this.logger.debug(`Loading scripts from ${scriptsPath}`)
     if (!Array.isArray(scriptsPath)) scriptsPath = [scriptsPath]
     scriptsPath.forEach((scriptsPath) => {
+      scriptsPath = rootPath.resolve(scriptsPath)
+      this.logger.debug(`Loading scripts from ${scriptsPath}`)
       if (scriptsPath[0] === '/') return this.load(scriptsPath)
       this.load(rootPath.resolve(scriptsPath))
     })

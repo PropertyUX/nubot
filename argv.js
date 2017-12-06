@@ -52,7 +52,7 @@ const getArgv = (robot) => yargs
     alias: ['require', 'r'],
     type: 'array',
     describe: 'Alternative scripts paths\n',
-    default: []
+    default: 'scripts'
   })
   .config()
   .alias('config', 'c')
