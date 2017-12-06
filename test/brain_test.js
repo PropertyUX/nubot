@@ -325,7 +325,7 @@ describe('Brain', function () {
     })
     beforeEach(function () {
       this.clock.restore() // mongoose requires timestamps
-      this.storage = require('nubot-mongodb-brain')(this.mockRobot)
+      this.storage = require('nubot-connect-mongo')(this.mockRobot)
     })
     it('emits connection event', function (done) {
       this.brain.once('loaded', () => done())

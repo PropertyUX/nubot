@@ -45,7 +45,7 @@
     "hubot-pretend": "^1.2.0",
     "mocha": "^2.1.0",
     "mockery": "^1.4.0",
-    "nubot-mongodb-brain": "^0.0.0",
+    "nubot-connect-mongo": "^0.1.0",
     "nyc": "^11.2.1",
     "semantic-release": "^8.0.3",
     "sinon": "~1.17.0",

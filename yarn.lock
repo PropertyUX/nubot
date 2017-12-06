@@ -3040,9 +3040,9 @@ npmconf@^2.1.2:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
-nubot-mongodb-brain@^0.0.0:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/nubot-mongodb-brain/-/nubot-mongodb-brain-0.0.0.tgz#284b31db75ef2dd76e45beaeb53e0e75674e1d13"
+nubot-connect-mongo@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/nubot-connect-mongo/-/nubot-connect-mongo-0.1.0.tgz#230d13485f44b2905d77ae6b745f8b81e9a6cb4d"
   dependencies:
     lodash "^4.17.4"
     mongoose "^4.13.4"
