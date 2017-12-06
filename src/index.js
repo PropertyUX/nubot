@@ -27,7 +27,7 @@ module.exports = {
   TopicMessage: Message.TopicMessage,
   CatchAllMessage: Message.CatchAllMessage,
 
-  loadBot (adapterName, enableHttpd, botName, botAlias, logLevel) {
-    return new module.exports.Robot(adapterName, enableHttpd, botName, botAlias, logLevel)
+  loadBot (adapterName, storageAdapter, enableHttpd, botName, botAlias, logLevel) {
+    return new module.exports.Robot(adapterName, storageAdapter, enableHttpd, botName, botAlias, logLevel)
   }
 }
