@@ -391,7 +391,7 @@ class Robot {
       scriptsPath = rootPath.resolve(scriptsPath)
       this.logger.debug(`Loading scripts from ${scriptsPath}`)
       if (scriptsPath[0] === '/') return this.load(scriptsPath)
-      this.load(rootPath.resolve(scriptsPath))
+      this.load(path.resolve(rootPath, scriptsPath))
     })
   }
 
