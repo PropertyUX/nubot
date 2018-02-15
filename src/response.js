@@ -30,6 +30,17 @@ class Response {
     return this.runWithMiddleware.apply(this, ['send', { plaintext: true }].concat(strings))
   }
 
+  // Public: Posts a direct message back to the chat source
+  //
+  // strings - One or more strings to be posted. The order of these strings
+  //           should be kept intact.
+  //
+  // Returns promise - resolves with context when middleware completes
+  sendDM (/* ...strings */) {
+    const strings = [].slice.call(arguments)
+    return this.runWithMiddleware.apply(this, ['sendDirect', { plaintext: true }].concat(strings))
+  }
+
   // Public: Posts an emote back to the chat source
   //
   // strings - One or more strings to be posted. The order of these strings
