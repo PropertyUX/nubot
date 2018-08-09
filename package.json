@@ -78,7 +78,7 @@
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "version": "0.5.7",
+  "version": "0.5.8",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
